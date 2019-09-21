@@ -7,10 +7,116 @@
   </head>
   <body>
 
+  <section>
+    <div data-key="81" id="work_it" class="key">
+      <span class="sound">Work It</span>
+    </div>
+    <div data-key="87" id="make_it" class="key">
+      <span class="sound">Make it</span>
+    </div>
+    <div data-key="69" id="do_it" class="key">
+      <span class="sound">Do it</span>
+    </div>
+    <div data-key="82" id="make_us" class="key">
+      <span class="sound">Make Us</span>
+    </div>
+    <div data-key="85" id="harder" class="key">
+      <span class="sound">Harder</span>
+    </div>
+    <div data-key="73" id="better" class="key">
+      <span class="sound">Better</span>
+    </div>
+    <div data-key="79" id="faster" class="key">
+      <span class="sound">Faster</span>
+    </div>
+    <div data-key="80" id="stronger" class="key">
+      <span class="sound">Stronger</span>
+    </div>
+    <div data-key="65" id="more_than" class="key">
+      <span class="sound">More Than</span>
+    </div>
+    <div data-key="83" id="hour" class="key">
+      <span class="sound">Hour</span>
+    </div>
+    <div data-key="68" id="our" class="key">
+      <span class="sound">Our</span>
+    </div>
+    <div data-key="70" id="never" class="key">
+      <span class="sound">Never</span>
+    </div>
+    <div data-key="74" id="ever" class="key">
+      <span class="sound">Ever</span>
+    </div>
+    <div data-key="75" id="after" class="key">
+      <span class="sound">After</span>
+    </div>
+    <div data-key="76" id="work_it" class="key">
+      <span class="sound">Work Is</span>
+    </div>
+    <div data-key="186" id="over" class="key">
+      <span class="sound">Over</span>
+    </div>
+  </section>
 
+  <audio data-key="81" src="sounds/work_it.wav"></audio>
+  <audio data-key="87" src="sounds/make_it.wav"></audio>
+  <audio data-key="69" src="sounds/do_it.wav"></audio>
+  <audio data-key="82" src="sounds/makes_us.wav"></audio>
+  <audio data-key="85" src="sounds/harder.wav"></audio>
+  <audio data-key="73" src="sounds/better.wav"></audio>
+  <audio data-key="79" src="sounds/faster.wav"></audio>
+  <audio data-key="80" src="sounds/stronger.wav"></audio>
+  <audio data-key="65" src="sounds/more_than.wav"></audio>
+  <audio data-key="83" src="sounds/hour.wav"></audio>
+  <audio data-key="68" src="sounds/our.wav"></audio>
+  <audio data-key="70" src="sounds/never.wav"></audio>
+  <audio data-key="74" src="sounds/ever.wav"></audio>
+  <audio data-key="75" src="sounds/after.wav"></audio>
+  <audio data-key="76" src="sounds/work_is.wav"></audio>
+  <audio data-key="186" src="sounds/over.wav"></audio>
 
+  <script>
 
+  function playSoundKey(e) {
+    const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+    if (!audio) {
+      return;
+    } else if(audio.paused) {
+      audio.play()
+      key.classList.add("playing");
+    } else {
+      audio.pause();
+      audio.currentTime = 0;
+    }
+  }
 
+  function playSoundClick(e) {
+    const audio = document.querySelector(`audio[data-key="${e.path[0].dataset.key}"]`);
+    const key = document.querySelector(`.key[data-key="${e.path[0].dataset.key}"]`);
+    if (!audio) {
+      return;
+    } else if(audio.paused) {
+      audio.play()
+      key.classList.add("playing");
+    } else {
+      audio.pause();
+      audio.currentTime = 0;
+    }
+  }
+
+  function removeTransition(e) {
+    if (e.propertyName !== "transform") return;
+    this.classList.remove("playing");
+  }
+
+  const keys = document.querySelectorAll(".key");
+  keys.forEach(key => key.addEventListener("transitionend", removeTransition));
+
+  window.addEventListener("keydown", playSoundKey);
+  window.addEventListener("click", playSoundClick);
+
+  </script>
 
   </body>
 </html>
